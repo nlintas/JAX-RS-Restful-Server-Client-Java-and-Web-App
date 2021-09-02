@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>Update</title>
+<!-- Latest Version of Bootstrap CDN CSS -->
+<link rel="stylesheet"
+	href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/css/bootstrap.min.css"
+	integrity="sha384-B0vP5xmATw1+K9KRQjQERJvTumQW0nPEzvF6L/Z6nronJ3oUOFUFpCjEUQouq2+l"
+	crossorigin="anonymous">
+<script type="text/javascript">
+	/* Updates a report from the database */
+	function update() {
+
+		var date = document.getElementById("start").value;
+		var value = document.getElementById("value").value;
+		var newValue = document.getElementById("newValue").value;
+
+		jQuery.ajax({
+			url : "http://localhost:8080/WebServerClient/rest/reports/update/"
+					+ date + "/" + newValue + "/" + value,
+			type : "PUT",
+			//contentType: 'application/json; charset=utf-8',
+			dataType : "text",
+			success : function(resultData) {
+				$("textarea#theData").text("Update Performed Successfully!");
+			},
+			error : function(jqXHR, textStatus, errorThrown) {
+			},
+			timeout : 120000,
+		});
+	}
+</script>
+
+</head>
+<body>
+
+	<!-- Title -->
+	<div class="d-flex flex-row justify-content-center">
+		<div class="m-2 p-2 bg-primary text-light rounded">
+			<h3 class="">COVID-19 Report System - Update</h3>
+		</div>
+
+	</div>
+
+	<!-- Label for Nav Bar -->
+	<div class="d-flex flex-row justify-content-start">
+		<div class="mx-3 mt-3">
+			<h6 class="">Navigation Controls</h6>
+		</div>
+	</div>
+
+	<!-- Navigation bar -->
+	<nav class="nav flex-row shadow-lg mt-2 mx-2 mb-4">
+		<a class="nav-link" href="index.html">View</a> <a class="nav-link"
+			href="create.html">Create</a> <a class="nav-link disabled"
+			href="update.html">Update</a> <a class="nav-link" href="delete.html">Delete</a>
+	</nav>
+	<!-- Header Section End -->
+
+	<!-- Main Content Start -->
+
+	<!-- Notes Section -->
+	<div class="row">
+		<div class="col-6">
+			<h4 class="mx-3 font-weight-bold">Notes:</h4>
+			<p class="mx-3">
+				To <span class="font-weight-bold">update a report</span>, parameters
+				are required.<br> <span class="font-italic">Enter the
+					date, new value and field of report parameters.</span>
+			</p>
+
+		</div>
+		<div class="col-6">
+			<h4>Valid Values for Report Field</h4>
+			<ul>
+				<li>For Date -> <span class="font-weight-bold">date</span></li>
+				<li>For ICU Admissions -> <span class="font-weight-bold">icu</span></li>
+				<li>For Cases -> <span class="font-weight-bold">cases</span></li>
+				<li>For Deaths -> <span class="font-weight-bold">deaths</span></li>
+			</ul>
+		</div>
+	</div>
+
+	<!-- Input Fields -->
+
+	<div class="d-flex flex-row justify-content-start mx-2 mt-3">
+		<div class="m-2 d-flex flex-column">
+			<div class="badge">Start Date</div>
+			<input type="date" id="start">
+		</div>
+		<div class="m-2 d-flex flex-column">
+			<div class="badge">Field Being Changed</div>
+			<input type="text" id="value" placeholder="Field of Report" required
+				minlength="1" maxlength="20" size="20">
+		</div>
+		<div class="m-2 d-flex flex-column">
+			<div class="badge">New Value of Field</div>
+			<input type="text" id="newValue" placeholder="New Value" required
+				minlength="1" maxlength="20" size="20">
+		</div>
+	</div>
+
+	<!-- Button Confirmation of Action -->
+
+	<div class="d-flex flex-row justify-content-start m-2">
+		<button type="button" class="btn btn-primary m-2" onclick="update()">Update
+			Report</button>
+	</div>
+
+	<!-- Text Area Label -->
+	<h6 class="mx-3">Request Results</h6>
+
+	<!-- Text Area Return -->
+
+	<div class="m-3 p-0">
+		<textarea readonly class="w-100" id="theData" rows="15" cols="10"></textarea>
+	</div>
+
+
+	<!-- Main Content End -->
+
+	<!-- Latest Version of jQuery -->
+	<script src="https://code.jquery.com/jquery-3.6.0.min.js"
+		integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+		crossorigin="anonymous"></script>
+
+	<!-- Latest Version of Bootstrap CDN Popper.js + JavaScript -->
+	<script
+		src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.0/dist/js/bootstrap.bundle.min.js"
+		integrity="sha384-Piv4xVNRyMGpqkS2by6br4gNJ7DXjqk09RmUpJ8jgGtD7zP9yug3goQfGII0yAns"
+		crossorigin="anonymous"></script>
+</body>
+</html>
